@@ -9,18 +9,20 @@
 git clone -b codebuddyTeam-creator https://github.com/simonggx/CCteam-creator.git
 cd CCteam-creator
 
-# 2. 安装英文版
-cp -r CCteam-creator/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
+# 2. 安装中文版（推荐）
+cp -r cn/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 
-# 或安装中文版
-cp -r CCteam-creator/cn/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
+# 或安装英文版
+# cp -r skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 ```
+
+> **注意**：中文版和英文版只能安装其中一个，不要同时安装。
 
 ### 方法 2：项目级安装（团队共享）
 
 ```bash
-# 在项目根目录下安装，方便团队成员共享
-cp -r CCteam-creator/skills/CCteam-creator .codebuddy/skills/CCteam-creator
+# 在项目根目录下安装中文版，方便团队成员共享
+cp -r cn/skills/CCteam-creator .codebuddy/skills/CCteam-creator
 ```
 
 ### 验证安装
