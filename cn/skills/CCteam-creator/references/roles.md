@@ -7,7 +7,7 @@
 - **核心职责**:
   - 与用户对齐范围、优先级和取舍
   - 将工作分解为任务，附带明确的输入、输出、依赖和验收标准
-  - 维护项目全局文件：主 `task_plan.md`、`decisions.md` 和项目 `CLAUDE.md`
+  - 维护项目全局文件：主 `task_plan.md`、`decisions.md` 和项目 `CODEBUDDY.md`
   - 把控阶段门禁：调研 → 开发 → 审查 → E2E → 清理
   - 拥有团队运营规则的决定权，判断某个流程改进是：
     - 仅限项目本地的文档变更，还是
@@ -24,7 +24,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 - **名称**: `backend-dev`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **参考**: tdd-guide 智能体（TDD 方法论 + 测试驱动开发）
 - **核心职责**:
   - 服务端实现（API 路由、控制器、中间件、数据库）
@@ -62,7 +62,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 - **名称**: `frontend-dev`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **参考**: tdd-guide 智能体
 - **核心职责**:
   - 客户端实现（组件、Hooks、状态管理、样式、路由）
@@ -86,7 +86,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 - **名称**: `researcher`（单个时）或 `researcher-1`/`researcher-2`/`researcher-<方向>`（多实例时）
 - **多实例**: 唯一设计为可多实例的标准角色。两种模式：(1) **按量拆分**（最常见）——同类工作按数量分，纯并行加速；(2) **按方向拆分**——完全独立的调研主题。每个实例有独立的 `.plans/` 目录。无竞态——researcher 对源代码只读。**反模式**：B 依赖 A 的结论时不要拆——单个 researcher 按顺序做比两个排队等依赖更快
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **参考**: 代码搜索 + 网页调研 + 架构分析
 - **核心职责**:
   - 代码库搜索：按模式查找文件（Glob）、按关键词搜索代码（Grep）
@@ -112,7 +112,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 - **名称**: `e2e-tester`
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **参考**: e2e-runner 智能体（Playwright E2E 测试）
 - **核心职责**:
   - 规划关键用户流程（认证、核心业务、错误路径、边界情况）
@@ -143,7 +143,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 - **名称**: `reviewer`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **参考**: code-reviewer 智能体（安全 + 质量审查）
 - **为什么不用 `code-reviewer` 类型**: code-reviewer 只有 Read/Grep/Glob/Bash，无法 Write/Edit。但 reviewer 需要写入 dev 的 findings.md 和自己的 progress.md。所以用 general-purpose + prompt 约束只读源代码。
 - **核心职责**:
@@ -200,7 +200,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 - **名称**: `cleaner`
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **参考**: refactor-cleaner 智能体（死代码清理 + 安全重构）
 - **核心职责**:
   - 识别和删除死代码（未使用的导入、变量、函数、文件）
@@ -231,9 +231,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 
 | 复杂度 | 模型 | 使用场景 |
 |--------|------|---------|
-| 中等（搜索、调研、架构分析） | sonnet | researcher（只读搜索 + 深度分析） |
-| 中等（测试编写、模式化操作） | sonnet | e2e-tester、cleaner |
-| 高（写业务代码、安全审查） | opus | backend-dev、frontend-dev、reviewer（需要深度推理和全局理解） |
+| 所有任务 | GLM-5.0 | 所有角色使用相同模型（GLM-5.0）保持一致性 |
 
 ## 通用行为协议（所有角色必须遵守）
 
@@ -255,7 +253,7 @@ Team-lead 是团队的**控制平面**，不只是任务派发器。
 |------|------|------|
 | 名称 | 是 | kebab-case，用于 SendMessage `to:` 和任务 `owner:` |
 | subagent_type | 是 | 必须匹配可用的智能体类型（注意工具限制，见下表） |
-| model | 是 | haiku / sonnet / opus |
+| model | 是 | GLM-5.0（所有角色使用相同模型） |
 | 参考 | 否 | 参考哪个内置智能体的方法论 |
 | 核心职责 | 是 | 具体做什么 |
 | 文档结构 | 是 | 是否需要按 task 分文件夹 |

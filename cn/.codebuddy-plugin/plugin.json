@@ -1,0 +1,20 @@
+{
+  "name": "CCteam-creator-cn",
+  "description": "CodeBuddy multi-agent team orchestration (Chinese version). Set up parallel AI agent teams with file-based planning and role-based collaboration.",
+  "version": "1.3.0",
+  "author": {
+    "name": "simonggx"
+  },
+  "homepage": "https://github.com/simonggx/CCteam-creator",
+  "license": "MIT",
+  "keywords": [
+    "codebuddy",
+    "agent-teams",
+    "multi-agent",
+    "orchestration",
+    "planning",
+    "skills",
+    "chinese",
+    "glm-5.0"
+  ]
+}

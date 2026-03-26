@@ -123,7 +123,7 @@ Examples:
 - better role boundaries
 - better review gates
 - better task/finding/progress conventions
-- better CLAUDE.md structure
+- better CODEBUDDY.md structure
 
 Do not decide on your own whether such a change should stay project-local or be written back into `CCteam-creator`; that classification belongs to team-lead.
 

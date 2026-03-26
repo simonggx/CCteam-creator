@@ -46,7 +46,7 @@ Read references/roles.md
 用自然对话的方式（不要照搬下面的原文，根据上下文灵活表达），向用户解释以下要点：
 
 **团队是什么**：
-- 你（Claude）作为 team-lead，会同时指挥多个 AI 智能体并行工作
+- 你（team-lead）作为团队领导，会同时指挥多个 AI 智能体并行工作
 - Team-lead 是**主对话的控制平面**，不是一个被生成的 teammate
 - 每个智能体有明确的角色分工（开发、研究、测试、审查等）
 - 智能体之间可以直接沟通（如 dev 直接找 reviewer 审查代码）
@@ -72,7 +72,7 @@ Read references/roles.md
 
 在介绍完机制后，通过对话了解：
 
-1. **工作语言** — 观察用户使用的语言。如果用户用中文沟通，团队默认中文回复；如果用户用英文沟通，团队应使用英文，不要把"默认中文回复"写入 CLAUDE.md 和入职 prompt
+1. **工作语言** — 观察用户使用的语言。如果用户用中文沟通，团队默认中文回复；如果用户用英文沟通，团队应使用英文，不要把"默认中文回复"写入 CODEBUDDY.md 和入职 prompt
 2. **任务类型** — 是软件开发、调研分析、内容创作、数据处理，还是混合型？这决定了标准角色是否直接适用还是需要调整
 3. **用户想达成什么** — 项目目标、交付物、成功标准
 3. **当前状态** — 是从零开始还是有已有工作？已有哪些工具/技术/资源？
@@ -91,12 +91,12 @@ Read references/roles.md
 
 | 角色 | 名称 | 参考智能体 | model | 核心能力 |
 |------|------|-----------|-------|---------|
-| 后端开发 | backend-dev | tdd-guide | opus | 写代码 + TDD + 大任务按 task 分文件夹 |
-| 前端开发 | frontend-dev | tdd-guide | opus | 写代码 + TDD + 大任务按 task 分文件夹 |
-| 探索/研究 | researcher | — | sonnet | 代码搜索 + 网页搜索 + 只读不改代码 |
-| 联调测试 | e2e-tester | e2e-runner | sonnet | E2E 测试 + 浏览器自动化 + Bug 记录 |
-| 代码审查 | reviewer | code-reviewer | opus | 只读审查 + 安全/质量/性能深度检查 |
-| 代码清理 | cleaner | refactor-cleaner | sonnet | 死代码清理 + 重复合并 + 重构 |
+| 后端开发 | backend-dev | tdd-guide | GLM-5.0 | 写代码 + TDD + 大任务按 task 分文件夹 |
+| 前端开发 | frontend-dev | tdd-guide | GLM-5.0 | 写代码 + TDD + 大任务按 task 分文件夹 |
+| 探索/研究 | researcher | — | GLM-5.0 | 代码搜索 + 网页搜索 + 只读不改代码 |
+| 联调测试 | e2e-tester | e2e-runner | GLM-5.0 | E2E 测试 + 浏览器自动化 + Bug 记录 |
+| 代码审查 | reviewer | code-reviewer | GLM-5.0 | 只读审查 + 安全/质量/性能深度检查 |
+| 代码清理 | cleaner | refactor-cleaner | GLM-5.0 | 死代码清理 + 重复合并 + 重构 |
 
 参见 [references/roles.md](references/roles.md) 了解角色详细定义和能力。
 
@@ -140,7 +140,7 @@ Team-lead = 主对话（你自己）。不要生成 team-lead 智能体。
 判断标准：
 
 - 项目特定的流程调整 → 更新项目文档
-- 持久的团队协议变更（team-lead 职责、角色边界、入职 prompt、CLAUDE.md 模板、任务/发现/进度约定）→ 先更新 `CCteam-creator`
+- 持久的团队协议变更（team-lead 职责、角色边界、入职 prompt、CODEBUDDY.md 模板、任务/发现/进度约定）→ 先更新 `CCteam-creator`
 
 不要在模板变更写回之前就推荐重建活跃团队，除非已选定了阶段边界。
 
@@ -232,22 +232,22 @@ Team-lead = 主对话（你自己）。不要生成 team-lead 智能体。
 
 快速的零散笔记（Bug 修复、配置变更）可以直接写在根文件中，不需要任务文件夹。
 
-## 第 3.5 步：生成项目 CLAUDE.md
+## 第 3.5 步：生成项目 CODEBUDDY.md
 
-项目工作目录下的 CLAUDE.md 会被 Claude Code **始终加载到主会话的上下文中**。这是让 team-lead 在上下文压缩后仍然保持团队运营知识的核心机制。
+项目工作目录下的 CODEBUDDY.md 会被 Claude Code **始终加载到主会话的上下文中**。这是让 team-lead 在上下文压缩后仍然保持团队运营知识的核心机制。
 
 ### 生成内容
 
-在**项目工作目录**（不是 `.plans/` 里面）创建或追加 `CLAUDE.md` 文件。
+在**项目工作目录**（不是 `.plans/` 里面）创建或追加 `CODEBUDDY.md` 文件。
 
-参见 [references/templates.md](references/templates.md) 中的 CLAUDE.md 模板。模板必须根据第 2 步确认的实际角色**动态填充**：
+参见 [references/templates.md](references/templates.md) 中的 CODEBUDDY.md 模板。模板必须根据第 2 步确认的实际角色**动态填充**：
 - 只列出确认参与的角色
 - 填入项目名称和目录路径
 - 如有自定义角色也要包含
 
-### 如果 CLAUDE.md 已存在
+### 如果 CODEBUDDY.md 已存在
 
-如果项目目录已有 CLAUDE.md，在末尾**追加**团队运营部分（用清晰的分隔线），不要覆盖已有内容。
+如果项目目录已有 CODEBUDDY.md，在末尾**追加**团队运营部分（用清晰的分隔线），不要覆盖已有内容。
 
 ### 为什么需要这个
 
@@ -256,11 +256,11 @@ Team-lead = 主对话（你自己）。不要生成 team-lead 智能体。
 - 怎么下发任务、怎么检查状态
 - 核心协议（3-Strike 处理、代码审查触发、阶段推进）
 
-CLAUDE.md 通过把精简的运营手册永久保留在上下文中来解决这个问题。
+CODEBUDDY.md 通过把精简的运营手册永久保留在上下文中来解决这个问题。
 
-### 何时更新 CLAUDE.md
+### 何时更新 CODEBUDDY.md
 
-CLAUDE.md 是一份**活文档**，不是一次性生成物。以下情况需要更新：
+CODEBUDDY.md 是一份**活文档**，不是一次性生成物。以下情况需要更新：
 - 捕获到一个反复出现的失败模式（→ 追加到 `## Known Pitfalls`）
 - 团队成员变动（新增/移除/重建智能体）
 - 项目中期建立了新协议
@@ -279,7 +279,7 @@ CLAUDE.md 是一份**活文档**，不是一次性生成物。以下情况需要
 
 骨架在项目启动时不需要完整——它随项目一起成长。但**文件必须从第一天就存在**，否则之后没人会去创建它。
 
-将 CI 命令添加到项目 CLAUDE.md 的核心协议表中，确保它在上下文压缩后仍然存在。
+将 CI 命令添加到项目 CODEBUDDY.md 的核心协议表中，确保它在上下文压缩后仍然存在。
 
 ## 第 4 步：创建团队 + 生成智能体
 
@@ -295,18 +295,18 @@ CLAUDE.md 是一份**活文档**，不是一次性生成物。以下情况需要
 
 然后**引导用户执行 `/compact`** 来释放上下文空间。解释原因：
 - 设置过程消耗了大量上下文（读取模板、创建文件、生成智能体）
-- 所有运营知识已持久化到 CLAUDE.md（始终加载）和 `.plans/` 文件中
+- 所有运营知识已持久化到 CODEBUDDY.md（始终加载）和 `.plans/` 文件中
 - 压缩可以回收上下文空间，用于实际的团队管理工作
-- 压缩后 team-lead 可立即恢复——CLAUDE.md 会保持所有协议在上下文中
+- 压缩后 team-lead 可立即恢复——CODEBUDDY.md 会保持所有协议在上下文中
 
 ## 关键规则
 
-- **双系统，不重复**：.plans/ 文件是数据源头（持久化、跟项目走）；原生 TaskCreate 是实时调度层（快速查询、依赖自动解锁，但仅会话级——存储在 `~/.claude/tasks/`，不在项目中）。TaskCreate 描述 = 一句话摘要 + `.plans/` 路径。在新会话中恢复项目时，从各智能体的 findings.md 索引重建任务
-- **Team-lead 是控制平面**：主对话负责用户对齐、任务分解、阶段门禁、主计划维护和 CLAUDE.md 更新
+- **双系统，不重复**：.plans/ 文件是数据源头（持久化、跟项目走）；原生 TaskCreate 是实时调度层（快速查询、依赖自动解锁，但仅会话级——存储在 `~/.codebuddy/tasks/`，不在项目中）。TaskCreate 描述 = 一句话摘要 + `.plans/` 路径。在新会话中恢复项目时，从各智能体的 findings.md 索引重建任务
+- **Team-lead 是控制平面**：主对话负责用户对齐、任务分解、阶段门禁、主计划维护和 CODEBUDDY.md 更新
 - **上下文恢复**：智能体被压缩后，必须先读自己的 task_plan.md + findings.md + progress.md 才能继续工作
 - **所有角色用任务文件夹**：每个分配的任务都有独立文件夹和三文件；根 findings.md 是索引
 - **代码审查触发条件**：大项目/大功能/新建功能完成后调 reviewer；小修改/Bug 修复不需要
-- **researcher 用 sonnet 模型**：调研需要一定深度
+- 所有智能体使用 GLM-5.0 模型：所有角色使用相同模型保持一致性
 - **并行生成**：同时启动所有独立智能体
 - **团队建立后禁用独立子智能体**：团队创建后，所有工作通过 SendMessage 交给队友完成——不要再启动独立的 Agent/子智能体（Explore、general-purpose 等）来做队友该做的事。独立子智能体绕过团队的规划文件和协作体系。唯一例外：用 `team_name` 参数生成新队友加入团队
 - **Peer Review**：dev 直接找 reviewer，不经 team-lead
@@ -314,7 +314,7 @@ CLAUDE.md 是一份**活文档**，不是一次性生成物。以下情况需要
 - **不变量优先处理高风险边界（Invariant-first）**：反复出现的 Bug 应从 Known Pitfalls 提升到 `docs/invariants.md`，然后转化为自动化测试。Reviewer 是第二道防线；自动化测试是第一道
 - **反膨胀原则（Anti-bloat）**：根 findings.md 是纯索引（不堆内容）。progress.md 太长难以快速浏览时应归档。task_plan.md 是精简导航图——架构、API 规范和技术细节属于 `docs/`，不是这里
 - **CI 门禁先于审查（CI gate before review）**：当 CI 脚本存在时，dev 必须运行并确认所有检查 PASS 后才能提交审查。Reviewer 可以拒绝未通过 CI 的代码。写了测试但没跑 = 没写测试
-- **模板优先处理持久流程变更**：如果发现的改进影响角色定义、入职 prompt、CLAUDE.md 结构或下发协议，先更新 `CCteam-creator` 源文件再建议重建
+- **模板优先处理持久流程变更**：如果发现的改进影响角色定义、入职 prompt、CODEBUDDY.md 结构或下发协议，先更新 `CCteam-creator` 源文件再建议重建
 - **在阶段边界重建**：不要在开发中途重建活跃团队；优先先同步模板、再同步项目文档、然后在主要阶段之间重建
 - **不要归档文件夹**：已完成的任务文件夹留在原地，在根 findings.md 索引中标记 `Status: complete` 即可。不要重命名、移动或加 `_archive_` 前缀——索引是导航层，文件夹位置必须稳定，否则交叉引用会断裂
 - **语言跟随用户**：根据第 1 步观察到的用户语言决定团队语言。用户用中文则团队中文回复；用户用英文则团队英文回复。不要硬编码语言偏好
@@ -369,7 +369,7 @@ team-lead 的职责不只是派发任务：
 
 - 与用户对齐需求和范围控制
 - 将工作分解为任务，附带明确的输入、输出和验收标准
-- 维护 `.plans/<project>/task_plan.md`、`decisions.md` 和项目 `CLAUDE.md`
+- 维护 `.plans/<project>/task_plan.md`、`decisions.md` 和项目 `CODEBUDDY.md`
 - 决定阶段门禁：调研 → 开发 → 审查 → E2E → 清理
 - 决定某个流程改进是项目本地的还是需要写回 `CCteam-creator` 的
 
@@ -387,7 +387,7 @@ team-lead 的职责不只是派发任务：
 - team-lead 职责
 - 角色边界
 - 入职协议
-- CLAUDE.md 结构
+- CODEBUDDY.md 结构
 - 任务/发现/进度约定
 - 重建时机规则
 
@@ -414,7 +414,7 @@ team-lead 的职责不只是派发任务：
 2. 分析是否需要修改主计划（task_plan.md）
 3. 给出明确的新方案方向，或重新分配任务给其他智能体
 4. **护栏检查**：这个失败模式会复现吗？
-   - 如果会（项目内）→ 追加到 CLAUDE.md `## Known Pitfalls`（症状、根因、修复、预防）
+   - 如果会（项目内）→ 追加到 CODEBUDDY.md `## Known Pitfalls`（症状、根因、修复、预防）
    - 如果会（跨项目通用）→ 同时记录 `[TEAM-PROTOCOL]` 并考虑模板级更新
    - 如果不会（一次性）→ 无需额外操作
 
@@ -428,5 +428,5 @@ team-lead 的职责不只是派发任务：
 - 各智能体的根 findings.md 索引是否完整？（有没有漏掉索引条目的孤立任务文件夹）
 - TaskList 中是否有过期的 `in_progress` 任务应标完成或重新分配？
 - 主 task_plan.md 的阶段状态是否与实际进度一致？
-- 检查 CLAUDE.md Known Pitfalls——有没有需要在下一阶段任务下发时带上的？
-- 执行 Harness 检查清单（见 CLAUDE.md 模板）
+- 检查 CODEBUDDY.md Known Pitfalls——有没有需要在下一阶段任务下发时带上的？
+- 执行 Harness 检查清单（见 CODEBUDDY.md 模板）

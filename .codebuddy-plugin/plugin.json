@@ -1,0 +1,19 @@
+{
+  "name": "CCteam-creator",
+  "description": "Multi-agent team orchestration for CodeBuddy. Set up parallel AI agent teams with file-based planning, progress tracking, and role-based collaboration.",
+  "version": "1.3.0",
+  "author": {
+    "name": "simonggx"
+  },
+  "homepage": "https://github.com/simonggx/CCteam-creator",
+  "license": "MIT",
+  "keywords": [
+    "codebuddy",
+    "agent-teams",
+    "multi-agent",
+    "orchestration",
+    "planning",
+    "skills",
+    "glm-5.0"
+  ]
+}

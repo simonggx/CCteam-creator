@@ -2,7 +2,7 @@
 
 ## 目录
 
-- **项目 CLAUDE.md** — 团队运营手册（始终在上下文中），花名册、下发协议、状态检查、文档索引、核心协议
+- **项目 CODEBUDDY.md** — 团队运营手册（始终在上下文中），花名册、下发协议、状态检查、文档索引、核心协议
 - **主 task_plan.md** — 精简导航图：概述、文档索引、阶段概览、任务汇总、当前阶段
 - **主 findings.md** — 团队级发现日志（带标签条目）
 - **主 progress.md** — 按时间顺序的工作日志
@@ -14,7 +14,7 @@
 
 ---
 
-## 项目 CLAUDE.md（团队运营手册）
+## 项目 CODEBUDDY.md（团队运营手册）
 
 此文件生成在**项目工作目录**下（不是 `.plans/` 里面）。Claude Code 会始终将其加载到主会话上下文中，确保 team-lead 在上下文压缩后不会丢失团队运营知识。
 
@@ -30,7 +30,7 @@
 
 - team-lead = 主对话，不是生成的 agent
 - team-lead 负责用户对齐、范围控制、任务分解和阶段推进
-- team-lead 维护项目全局真相：主 `task_plan.md`、`decisions.md` 和此 `CLAUDE.md`
+- team-lead 维护项目全局真相：主 `task_plan.md`、`decisions.md` 和此 `CODEBUDDY.md`
 - team-lead 决定某个流程改进是项目本地的还是需要写回 `CCteam-creator` 的
 - **禁用独立子智能体**：团队存在后，所有工作通过 SendMessage 交给队友。不要启动独立的 Agent/子智能体（Explore、general-purpose 等）——它们绕过团队的规划文件和协作体系。唯一例外：用 `team_name` 生成新队友加入团队
 
@@ -38,12 +38,12 @@
 
 | 名称 | 角色 | 模型 | 核心能力 |
 |------|------|------|---------|
-| backend-dev | 后端开发 | opus | 服务端代码 + TDD |
-| frontend-dev | 前端开发 | opus | 客户端代码 + TDD |
-| researcher | 探索/研究 | sonnet | 代码搜索 + 网页调研（只读）。可多实例：按量拆分（最常见）或按独立方向拆分——不用于串行依赖链 |
-| e2e-tester | 联调测试 | sonnet | Playwright 测试 + 浏览器自动化 |
-| reviewer | 代码审查 | opus | 安全/质量/性能审查（只读） |
-| cleaner | 代码清理 | sonnet | 死代码清理 + 重构 |
+| backend-dev | 后端开发 | GLM-5.0 | 服务端代码 + TDD |
+| frontend-dev | 前端开发 | GLM-5.0 | 客户端代码 + TDD |
+| researcher | 探索/研究 | GLM-5.0 | 代码搜索 + 网页调研（只读）。可多实例：按量拆分（最常见）或按独立方向拆分——不用于串行依赖链 |
+| e2e-tester | 联调测试 | GLM-5.0 | Playwright 测试 + 浏览器自动化 |
+| reviewer | 代码审查 | GLM-5.0 | 安全/质量/性能审查（只读） |
+| cleaner | 代码清理 | GLM-5.0 | 死代码清理 + 重构 |
 
 ## 任务下发协议
 
@@ -118,7 +118,7 @@ SendMessage(to: "frontend-dev", message: "修复登录表单的 XSS 漏洞，见
 
 team-lead 在阶段边界检查（不是每个任务都查）：
 
-- **文档 harness**：读 CLAUDE.md + 主 task_plan.md——还准确吗？如果过时 → 在下发下一阶段任务前更新
+- **文档 harness**：读 CODEBUDDY.md + 主 task_plan.md——还准确吗？如果过时 → 在下发下一阶段任务前更新
 - **可观测性 harness**：Grep progress.md 搜索 "error|fail"——失败记录是否有足够细节（尝试步骤、具体错误、根因）？
 - **不变量 harness**：检查下方 Known Pitfalls——是否有条目应提升为 reviewer 检查项或自动化测试断言？
 - **回放 harness**：本阶段是否产生了可复用的模式（搜索策略、架构模板、测试方案）？如果有，用 [TEAM-PROTOCOL] 记录供未来参考
@@ -164,7 +164,7 @@ team-lead 在阶段边界检查（不是每个任务都查）：
 - team-lead 职责
 - 角色边界
 - 入职协议
-- CLAUDE.md 结构
+- CODEBUDDY.md 结构
 - 任务/发现/进度约定
 - 重建时机规则
 

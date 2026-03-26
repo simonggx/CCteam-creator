@@ -1,8 +1,8 @@
 # Planning File Templates
 
-## Project CLAUDE.md (Team Operations Guide)
+## Project CODEBUDDY.md (Team Operations Guide)
 
-This file is generated in the **project working directory** (not inside `.plans/`). Claude Code always loads it into the main session context, so team-lead never loses operational knowledge after context compression.
+This file is generated in the **project working directory** (not inside `.plans/`). CodeBuddy always loads it into the main session context, so team-lead never loses operational knowledge after context compression.
 
 **Dynamic**: Only include the roles confirmed in Step 2. The example below shows a full team; remove rows for roles not in use.
 
@@ -16,7 +16,7 @@ This file is generated in the **project working directory** (not inside `.plans/
 
 - team-lead = the main conversation, not a spawned agent
 - team-lead owns user alignment, scope control, task decomposition, and phase transitions
-- team-lead maintains project-global truth: main `task_plan.md`, `decisions.md`, and this `CLAUDE.md`
+- team-lead maintains project-global truth: main `task_plan.md`, `decisions.md`, and this `CODEBUDDY.md`
 - team-lead decides whether a workflow improvement is project-local or should be written back into `CCteam-creator`
 - **No standalone subagents**: Once the team exists, ALL work goes through teammates via SendMessage. Do NOT spawn standalone Agent/subagent (Explore, general-purpose, etc.) — they bypass the team's planning files and coordination. Only exception: spawning a new teammate (with `team_name`) to join the team
 
@@ -24,12 +24,12 @@ This file is generated in the **project working directory** (not inside `.plans/
 
 | Name | Role | Model | Key Capability |
 |------|------|-------|---------------|
-| backend-dev | Backend Developer | opus | Server-side code + TDD |
-| frontend-dev | Frontend Developer | opus | Client-side code + TDD |
-| researcher | Explorer/Researcher | sonnet | Code search + web research (read-only). Multi-instance: split by volume (most common) or by independent direction — never for sequential chains |
-| e2e-tester | E2E Tester | sonnet | Playwright tests + browser automation |
-| reviewer | Code Reviewer | opus | Security/quality/performance review (read-only) |
-| cleaner | Code Cleaner | sonnet | Dead code removal + refactoring |
+| backend-dev | Backend Developer | GLM-5.0 | Server-side code + TDD |
+| frontend-dev | Frontend Developer | GLM-5.0 | Client-side code + TDD |
+| researcher | Explorer/Researcher | GLM-5.0 | Code search + web research (read-only). Multi-instance: split by volume (most common) or by independent direction — never for sequential chains |
+| e2e-tester | E2E Tester | GLM-5.0 | Playwright tests + browser automation |
+| reviewer | Code Reviewer | GLM-5.0 | Security/quality/performance review (read-only) |
+| cleaner | Code Cleaner | GLM-5.0 | Dead code removal + refactoring |
 
 ## Task Dispatch Protocol
 
@@ -104,7 +104,7 @@ Reading order: **progress** (where are we) -> **findings** (what happened) -> **
 
 Team-lead reviews at phase boundaries (not every task):
 
-- **Docs harness**: Read CLAUDE.md + main task_plan.md — still accurate? If stale → update before dispatching next phase
+- **Docs harness**: Read CODEBUDDY.md + main task_plan.md — still accurate? If stale → update before dispatching next phase
 - **Observability harness**: Grep progress.md for "error|fail" — are failures logged with enough detail (steps tried, exact error, root cause)?
 - **Invariant harness**: Review Known Pitfalls below — should any entry become a reviewer checklist item or an automated test assertion?
 - **Replay harness**: Did this phase produce a reusable pattern (search strategy, architecture template, test plan)? If so, note with [TEAM-PROTOCOL] for future reference
@@ -150,7 +150,7 @@ Typical template-level changes:
 - team-lead responsibilities
 - role boundaries
 - onboarding protocol
-- CLAUDE.md structure
+- CODEBUDDY.md structure
 - task/finding/progress conventions
 - rebuild timing rules
 

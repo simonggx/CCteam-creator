@@ -46,7 +46,7 @@ Do NOT delegate this to a subagent (Explore, general-purpose, etc.). Subagents r
 In a natural, conversational tone (do not copy this text verbatim — adapt to context), explain the following points:
 
 **What a team is**:
-- You (Claude) act as team-lead, simultaneously directing multiple AI agents working in parallel
+- You (team-lead) act as team-lead, simultaneously directing multiple AI agents working in parallel
 - Team-lead is the **main conversation control plane**, not a spawned teammate
 - Each agent has a clearly defined role (development, research, testing, review, etc.)
 - Agents can communicate directly with each other (e.g., dev reaching out to reviewer directly)
@@ -72,7 +72,7 @@ In a natural, conversational tone (do not copy this text verbatim — adapt to c
 
 After the introduction, learn the following through conversation:
 
-1. **Working language** — Observe the language the user communicates in. If they use English, the team responds in English; if Chinese, team responds in Chinese. Match the language in CLAUDE.md and onboarding prompts accordingly
+1. **Working language** — Observe the language the user communicates in. If they use English, the team responds in English; if Chinese, team responds in Chinese. Match the language in CODEBUDDY.md and onboarding prompts accordingly
 2. **Task type** — Is this software development, research/analysis, content creation, data processing, or a mix? This determines whether standard roles apply directly or need adaptation
 3. **What the user wants to accomplish** — Project goals, deliverables, success criteria
 3. **Current state** — Is this a greenfield project or existing work? What tools/tech/resources are already in place?
@@ -91,12 +91,12 @@ Available standard roles (software development):
 
 | Role | Name | Reference Agent | model | Core Capability |
 |------|------|----------------|-------|----------------|
-| Backend Dev | backend-dev | tdd-guide | opus | Write code + TDD + large tasks split into task folders |
-| Frontend Dev | frontend-dev | tdd-guide | opus | Write code + TDD + large tasks split into task folders |
-| Explorer/Researcher | researcher | — | sonnet | Code search + web research + read-only (no code edits) |
-| E2E Tester | e2e-tester | e2e-runner | sonnet | E2E testing + browser automation + bug tracking |
-| Code Reviewer | reviewer | code-reviewer | opus | Read-only review + deep security/quality/performance checks |
-| Code Cleaner | cleaner | refactor-cleaner | sonnet | Dead code removal + deduplication + refactoring |
+| Backend Dev | backend-dev | tdd-guide | GLM-5.0 | Write code + TDD + large tasks split into task folders |
+| Frontend Dev | frontend-dev | tdd-guide | GLM-5.0 | Write code + TDD + large tasks split into task folders |
+| Explorer/Researcher | researcher | — | GLM-5.0 | Code search + web research + read-only (no code edits) |
+| E2E Tester | e2e-tester | e2e-runner | GLM-5.0 | E2E testing + browser automation + bug tracking |
+| Code Reviewer | reviewer | code-reviewer | GLM-5.0 | Read-only review + deep security/quality/performance checks |
+| Code Cleaner | cleaner | refactor-cleaner | GLM-5.0 | Dead code removal + deduplication + refactoring |
 
 See [references/roles.md](references/roles.md) for detailed role definitions and capabilities.
 
@@ -140,7 +140,7 @@ If the user is improving an **existing team system** rather than starting from s
 Rule of thumb:
 
 - project-specific workflow tweaks → update project docs
-- durable team protocol changes (team-lead responsibilities, role boundaries, onboarding prompts, CLAUDE.md template, task/finding/progress conventions) → update `CCteam-creator` first
+- durable team protocol changes (team-lead responsibilities, role boundaries, onboarding prompts, CODEBUDDY.md template, task/finding/progress conventions) → update `CCteam-creator` first
 
 Do not recommend immediately rebuilding an active team unless the template changes are already written back and a phase boundary has been chosen.
 
@@ -232,22 +232,22 @@ Example structure with multiple roles:
 
 Quick one-off notes (bug fixes, config changes) can go directly in root files without a task folder.
 
-## Step 3.5: Generate Project CLAUDE.md
+## Step 3.5: Generate Project CODEBUDDY.md
 
-CLAUDE.md in the project working directory is **always loaded into the main session's context** by Claude Code. This is the mechanism that keeps team-lead operational knowledge persistent across context compressions.
+CODEBUDDY.md in the project working directory is **always loaded into the main session's context** by CodeBuddy. This is the mechanism that keeps team-lead operational knowledge persistent across context compressions.
 
 ### What to Generate
 
-Create (or append to) a `CLAUDE.md` file in the **project working directory** (not inside `.plans/`).
+Create (or append to) a `CODEBUDDY.md` file in the **project working directory** (not inside `.plans/`).
 
-See [references/templates.md](references/templates.md) for the CLAUDE.md template. The template must be **dynamically filled** based on the actual roles chosen in Step 2:
+See [references/templates.md](references/templates.md) for the CODEBUDDY.md template. The template must be **dynamically filled** based on the actual roles chosen in Step 2:
 - Only list the roles that were confirmed
 - Fill in the project name and directory paths
 - Include custom roles if any were defined
 
-### If CLAUDE.md Already Exists
+### If CODEBUDDY.md Already Exists
 
-If the project directory already has a CLAUDE.md, **append** the team operations section at the end (with a clear separator), do not overwrite the existing content.
+If the project directory already has a CODEBUDDY.md, **append** the team operations section at the end (with a clear separator), do not overwrite the existing content.
 
 ### Why This Matters
 
@@ -256,11 +256,11 @@ Without this file, after context compression the team-lead loses all knowledge o
 - How to dispatch tasks and check status
 - Core protocols (3-Strike handling, code review triggers, phase advancement)
 
-The CLAUDE.md solves this by keeping a concise operations guide permanently in context.
+The CODEBUDDY.md solves this by keeping a concise operations guide permanently in context.
 
-### When to Update CLAUDE.md
+### When to Update CODEBUDDY.md
 
-CLAUDE.md is a **living document**, not a one-time generation. Update it when:
+CODEBUDDY.md is a **living document**, not a one-time generation. Update it when:
 - A recurring failure pattern is captured (→ append to `## Known Pitfalls`)
 - Team roster changes (agent added/removed/rebuilt)
 - A new protocol is established mid-project
@@ -279,7 +279,7 @@ If the project has testable code (backend, frontend, or both), create a CI scrip
 
 The skeleton does not need to be complete at project start — it grows as the project grows. But **the file must exist from day one**, otherwise no one will create it later.
 
-Add the CI command to the project CLAUDE.md Key Protocols table so it survives context compression.
+Add the CI command to the project CODEBUDDY.md Key Protocols table so it survives context compression.
 
 ## Step 4: Create Team + Spawn Agents
 
@@ -295,18 +295,18 @@ Show the user a table of team members and the file locations.
 
 Then **guide the user to run `/compact`** to free up context. Explain why:
 - The setup process consumed significant context (reading templates, creating files, spawning agents)
-- All operational knowledge is now persisted in CLAUDE.md (always loaded) and `.plans/` files
+- All operational knowledge is now persisted in CODEBUDDY.md (always loaded) and `.plans/` files
 - Compacting reclaims context space for actual team management work
-- After compaction, team-lead can resume immediately — CLAUDE.md keeps all protocols in context
+- After compaction, team-lead can resume immediately — CODEBUDDY.md keeps all protocols in context
 
 ## Key Rules
 
-- **Dual-system, no duplication**: .plans/ files are the source of truth (persistent, project-scoped); native TaskCreate is the live dispatch layer (fast queries, auto-unblocking dependencies, but session-scoped — stored in `~/.claude/tasks/`, not in project). TaskCreate description = one-line summary + `.plans/` path. When resuming a project in a new session, reconstruct tasks from each agent's findings.md index
-- **Team-lead is the control plane**: the main conversation owns user alignment, task decomposition, phase gates, main-plan maintenance, and CLAUDE.md upkeep
+- **Dual-system, no duplication**: .plans/ files are the source of truth (persistent, project-scoped); native TaskCreate is the live dispatch layer (fast queries, auto-unblocking dependencies, but session-scoped — stored in `~/.codebuddy/tasks/`, not in project). TaskCreate description = one-line summary + `.plans/` path. When resuming a project in a new session, reconstruct tasks from each agent's findings.md index
+- **Team-lead is the control plane**: the main conversation owns user alignment, task decomposition, phase gates, main-plan maintenance, and CODEBUDDY.md upkeep
 - **Context recovery**: After an agent is compacted, it must first read its task folder's files (or root files if no active task folder)
 - **All roles use task folders**: Every assigned task gets a dedicated folder with its own findings/progress files; root findings.md is an index
 - **Code review trigger**: Call reviewer after completing a feature/new module; small changes/bug fixes do not require review
-- **researcher uses sonnet model**: Research requires sufficient depth
+- All agents use GLM-5.0 model: All roles use the same model for consistency
 - **Spawn in parallel**: Launch all independent agents simultaneously
 - **No standalone subagents after team exists**: Once the team is created, ALL work goes through teammates via SendMessage — do NOT spawn standalone Agent/subagent (Explore, general-purpose, etc.) to do work that a teammate should handle. Subagents bypass the team's planning files, findings, and coordination. The only exception is spawning a new teammate (with `team_name`) to permanently join the team
 - **Peer Review**: dev reaches out to reviewer directly, without going through team-lead
@@ -314,7 +314,7 @@ Then **guide the user to run `/compact`** to free up context. Explain why:
 - **Invariant-first for high-risk boundaries**: Recurring bugs should be promoted from Known Pitfalls to `docs/invariants.md`, then converted to automated tests. Reviewer is the second line of defense; automated tests are the first
 - **Anti-bloat principle**: Root findings.md is a pure index (no content dumping). progress.md should be archived when it gets too long to scan quickly. task_plan.md is a lean navigation map — architecture, API specs, and tech details belong in `docs/`, not here
 - **CI gate before review**: When a CI script exists, dev must run it and confirm all checks pass before submitting for review. Reviewer may reject code that hasn't passed CI. Tests written but not run = tests not written
-- **Template-first for durable workflow changes**: if a discovered improvement affects role definitions, onboarding, CLAUDE.md structure, or dispatch protocols, update `CCteam-creator` source files before recommending a rebuild
+- **Template-first for durable workflow changes**: if a discovered improvement affects role definitions, onboarding, CODEBUDDY.md structure, or dispatch protocols, update `CCteam-creator` source files before recommending a rebuild
 - **Rebuild at phase boundaries**: do not rebuild an active team mid-stream unless necessary; prefer syncing templates first, then syncing project docs, then rebuilding between major phases
 - **No archiving**: Completed task folders stay in place — just mark `Status: complete` in the root findings.md index. Do not rename, move, or prefix folders with `_archive_`. The index is the navigation layer; folder location must remain stable so cross-references don't break
 
@@ -366,7 +366,7 @@ The team-lead is responsible for more than dispatch:
 
 - user requirement alignment and scope control
 - task decomposition with explicit inputs, outputs, and acceptance criteria
-- maintaining `.plans/<project>/task_plan.md`, `decisions.md`, and project `CLAUDE.md`
+- maintaining `.plans/<project>/task_plan.md`, `decisions.md`, and project `CODEBUDDY.md`
 - deciding phase gates: research → dev → review → e2e → cleanup
 - deciding whether a workflow change is project-local or should be written back into `CCteam-creator`
 
@@ -384,7 +384,7 @@ Examples of template-level changes:
 - team-lead responsibilities
 - role boundaries
 - onboarding protocol
-- CLAUDE.md structure
+- CODEBUDDY.md structure
 - task/finding/progress conventions
 - rebuild timing rules
 
@@ -411,7 +411,7 @@ When an agent reports "3 failures, escalating to team-lead":
 2. Assess whether the main plan (task_plan.md) needs to be revised
 3. Provide a clear new direction, or reassign the task to another agent
 4. **Guardrail check**: Will this failure pattern recur?
-   - If YES for this project → append to CLAUDE.md `## Known Pitfalls` (symptom, root cause, fix, prevention)
+   - If YES for this project → append to CODEBUDDY.md `## Known Pitfalls` (symptom, root cause, fix, prevention)
    - If YES for future teams → also record `[TEAM-PROTOCOL]` and consider template update
    - If NO (one-off) → no further action
 
@@ -425,5 +425,5 @@ When an agent reports "3 failures, escalating to team-lead":
 - Are all agent root findings.md indexes up to date? (no orphan task folders missing an index entry)
 - Are there stale `in_progress` tasks in TaskList that should be completed or reassigned?
 - Does main task_plan.md phase status match actual progress?
-- Review CLAUDE.md Known Pitfalls — anything to include in next phase's task dispatch?
-- Run Harness Checklist (see CLAUDE.md template)
+- Review CODEBUDDY.md Known Pitfalls — anything to include in next phase's task dispatch?
+- Run Harness Checklist (see CODEBUDDY.md template)

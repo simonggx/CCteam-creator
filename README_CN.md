@@ -1,6 +1,6 @@
 # CCteam-creator
 
-> [Claude Code](https://code.claude.com/) 多智能体团队编排技能。
+> [CodeBuddy Code](https://cnb.cool/) 多智能体团队编排技能。
 
 [English](./README.md) | [中文](./README_CN.md)
 
@@ -19,12 +19,12 @@ CCteam-creator 基于以下优秀的开源项目和工程实践构建：
 
 ## 功能概述
 
-CCteam-creator 在 Claude Code 中设置并行 AI 智能体团队。不再是单个 AI 助手，而是多个专业智能体 —— 开发、研究、测试、审查 —— 协同工作。
+CCteam-creator 在 CodeBuddy 中设置并行 AI 智能体团队。不再是单个 AI 助手，而是多个专业智能体 —— 开发、研究、测试、审查 —— 协同工作。
 
 调用后，CCteam-creator 会：
 
 1. **先沟通** — 介绍团队机制，了解项目需求，推荐团队配置
-2. **完成搭建** — 创建规划文件、docs/ 知识库、CLAUDE.md 运营手册、智能体入职
+2. **完成搭建** — 创建规划文件、docs/ 知识库、CODEBUDDY.md 运营手册、智能体入职
 3. **管理协作** — 智能体直接沟通，状态持久化到文件，遵循内置协议
 
 ## 实战演示
@@ -63,7 +63,7 @@ Team-lead 运行阶段级 harness 检查 —— 验证每个任务的完成状�
 
 ### 6. 最终面板 — 全员一览
 
-完整验收清单，含 reviewer [OK]、e2e-tester PASS/FAIL 状态、文档一致性验证。底部展示 Claude Code 的实时智能体 HUD，显示全部 6 个队友及 token 用量。
+完整验收清单，含 reviewer [OK]、e2e-tester PASS/FAIL 状态、文档一致性验证。底部展示 CodeBuddy 的实时智能体 HUD，显示全部 6 个队友及 token 用量。
 
 ![最终面板](docs/images/06-final-dashboard.png)
 
@@ -71,16 +71,16 @@ Team-lead 运行阶段级 harness 检查 —— 验证每个任务的完成状�
 
 ## 前置条件
 
-智能体团队是 Claude Code 的实验性功能，需要先启用：
+智能体团队是 CodeBuddy 的实验性功能，需要先启用：
 
 ```bash
 # 方式 A：环境变量
-export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+export CODEBUDDY_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
-# 方式 B：在 ~/.claude/settings.json 中
+# 方式 B：在 ~/.codebuddy/settings.json 中
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CODEBUDDY_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }
 ```
@@ -92,7 +92,7 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ### 方式 1：Marketplace 安装（推荐）
 
 ```bash
-# 第 1 步：添加 marketplace（在 Claude Code 中运行）
+# 第 1 步：添加 marketplace（在 CodeBuddy 中运行）
 /plugin marketplace add jessepwj/CCteam-creator
 
 # 第 2 步：安装 — 选择一个语言
@@ -106,17 +106,17 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 git clone https://github.com/jessepwj/CCteam-creator.git
 
 # 英文
-cp -r CCteam-creator/skills/CCteam-creator ~/.claude/skills/CCteam-creator
+cp -r CCteam-creator/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 
 # 或中文
-cp -r CCteam-creator/cn/skills/CCteam-creator ~/.claude/skills/CCteam-creator
+cp -r CCteam-creator/cn/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 ```
 
 ### 方式 3：项目级安装
 
 ```bash
 # 通过项目目录与团队共享
-cp -r CCteam-creator/cn/skills/CCteam-creator .claude/skills/CCteam-creator
+cp -r CCteam-creator/cn/skills/CCteam-creator .codebuddy/skills/CCteam-creator
 ```
 
 ## 使用方法
@@ -135,12 +135,12 @@ cp -r CCteam-creator/cn/skills/CCteam-creator .claude/skills/CCteam-creator
 
 | 角色 | 名称 | 模型 | 核心能力 |
 |------|------|------|---------|
-| 后端开发 | `backend-dev` | opus | 服务端代码 + TDD + Doc-Code 同步 + 可观测性（适用时） |
-| 前端开发 | `frontend-dev` | opus | 客户端代码 + TDD + Doc-Code 同步 + 组件测试 |
-| 探索/研究 | `researcher` | sonnet | 代码搜索 + 网页调研 + 方案压测（只读） |
-| 联调测试 | `e2e-tester` | sonnet | Playwright E2E + 事件优先调试 + Bug 追踪 |
-| 代码审查 | `reviewer` | opus | 安全/质量/性能 + 文档一致性 + 不变量驱动审查 |
-| 代码清理 | `cleaner` | sonnet | 死代码清理 + 文档新鲜度扫描 + 安全重构 |
+| 后端开发 | `backend-dev` | GLM-5.0 | 服务端代码 + TDD + Doc-Code 同步 + 可观测性（适用时） |
+| 前端开发 | `frontend-dev` | GLM-5.0 | 客户端代码 + TDD + Doc-Code 同步 + 组件测试 |
+| 探索/研究 | `researcher` | GLM-5.0 | 代码搜索 + 网页调研 + 方案压测（只读） |
+| 联调测试 | `e2e-tester` | GLM-5.0 | Playwright E2E + 事件优先调试 + Bug 追踪 |
+| 代码审查 | `reviewer` | GLM-5.0 | 安全/质量/性能 + 文档一致性 + 不变量驱动审查 |
+| 代码清理 | `cleaner` | GLM-5.0 | 死代码清理 + 文档新鲜度扫描 + 安全重构 |
 
 不是每个项目都需要全部角色。CCteam-creator 会根据你的需求推荐合适的组合。
 
@@ -148,7 +148,7 @@ cp -r CCteam-creator/cn/skills/CCteam-creator .claude/skills/CCteam-creator
 
 ### Team-Lead 作为控制平面
 
-主对话作为 team-lead——不只是任务派发器，而是**控制平面**，负责用户对齐、阶段门禁和团队持久化运营规则。Team-lead 维护项目 CLAUDE.md（始终在上下文中）、task_plan.md 和 decisions.md。
+主对话作为 team-lead——不只是任务派发器，而是**控制平面**，负责用户对齐、阶段门禁和团队持久化运营规则。Team-lead 维护项目 CODEBUDDY.md（始终在上下文中）、task_plan.md 和 decisions.md。
 
 ### docs/ 知识库（Harness Engineering）
 
@@ -173,7 +173,7 @@ task_plan.md 是一张**导航图**，不是百科全书。架构、API 规范�
 
 ### 失败→护栏闭环
 
-当 3-Strike 上报解决或 reviewer [BLOCK] 修复后，team-lead 会问："会再发生吗？"如果会，就记入 CLAUDE.md 的 Known Pitfalls——确保同样的错误不再发生。这是 Harness Engineering 的核心洞察：每次失败都变成永久性护栏。
+当 3-Strike 上报解决或 reviewer [BLOCK] 修复后，team-lead 会问："会再发生吗？"如果会，就记入 CODEBUDDY.md 的 Known Pitfalls——确保同样的错误不再发生。这是 Harness Engineering 的核心洞察：每次失败都变成永久性护栏。
 
 ### 反膨胀原则
 
@@ -251,9 +251,9 @@ Reviewer 不仅检查安全/质量/性能，还检查：
 | Doc-Code 同步 | Dev 代码变更时更新 docs/；reviewer 验证 |
 | 阶段健康检查 | 阶段边界时检查文档新鲜度、过期任务、索引完整性 |
 
-### 活文档 CLAUDE.md
+### 活文档 CODEBUDDY.md
 
-CLAUDE.md 不是一次性生成物——它是一份**活文档**，随项目演进。当捕获到失败模式、团队名单变动或建立新协议时更新。
+CODEBUDDY.md 不是一次性生成物——它是一份**活文档**，随项目演进。当捕获到失败模式、团队名单变动或建立新协议时更新。
 
 ## 已知限制：团队成员无法压缩上下文
 
@@ -263,18 +263,18 @@ CLAUDE.md 不是一次性生成物——它是一份**活文档**，随项目演
 
 **建议**：团队项目使用 200k 上下文（默认）。如果你使用了 1M 上下文并发现变慢：
 
-1. 完全退出 Claude Code（`Ctrl+C` 或 `/exit`）
-2. 用 `claude --continue` 恢复会话
-3. Team-lead 读取 `.plans/` 文件恢复项目状态（CLAUDE.md 会自动加载）
+1. 完全退出 CodeBuddy（`Ctrl+C` 或 `/exit`）
+2. 用 `codebuddy --continue` 恢复会话
+3. Team-lead 读取 `.plans/` 文件恢复项目状态（CODEBUDDY.md 会自动加载）
 4. 重新生成团队成员——它们以干净的上下文启动，通过读取各自的 `.plans/` 文件恢复工作进度
 
-这是 Claude Code 平台的限制，不是 CCteam-creator 的问题。所有工作进度都持久化在 `.plans/` 文件中，重启不会丢失任何工作。
+这是 CodeBuddy 平台的限制，不是 CCteam-creator 的问题。所有工作进度都持久化在 `.plans/` 文件中，重启不会丢失任何工作。
 
 ## 项目结构
 
 ```
 CCteam-creator/
-  .claude-plugin/
+  .codebuddy-plugin/
     marketplace.json              -- Marketplace 目录
     plugin.json                   -- 英文插件元数据
   skills/
@@ -283,7 +283,7 @@ CCteam-creator/
       references/
         roles.md / onboarding.md / templates.md
   cn/                             -- 中文变体
-    .claude-plugin/plugin.json
+    .codebuddy-plugin/plugin.json
     skills/
       CCteam-creator/
         SKILL.md

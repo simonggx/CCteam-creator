@@ -1,6 +1,6 @@
 # CCteam-creator
 
-> Multi-agent team orchestration skill for [Claude Code](https://code.claude.com/).
+> Multi-agent team orchestration skill for [CodeBuddy Code](https://cnb.cool/).
 
 [English](./README.md) | [中文](./README_CN.md)
 
@@ -19,12 +19,12 @@ CCteam-creator is built upon outstanding open-source projects and engineering pr
 
 ## What It Does
 
-CCteam-creator sets up parallel AI agent teams in Claude Code. Instead of a single AI assistant, you orchestrate multiple specialized agents — developers, researchers, testers, reviewers — working together on your project.
+CCteam-creator sets up parallel AI agent teams in CodeBuddy. Instead of a single AI assistant, you orchestrate multiple specialized agents — developers, researchers, testers, reviewers — working together on your project.
 
 When invoked, CCteam-creator:
 
 1. **Consults with you** — explains how agent teams work, understands your project, recommends a team
-2. **Sets up everything** — planning files, docs/ knowledge base, CLAUDE.md operations guide, agent onboarding
+2. **Sets up everything** — planning files, docs/ knowledge base, CODEBUDDY.md operations guide, agent onboarding
 3. **Manages collaboration** — agents communicate directly, persist state to files, follow built-in protocols
 
 ## In Action
@@ -63,7 +63,7 @@ Team-lead runs a phase-level harness check — verifying each task's completion 
 
 ### 6. Final Dashboard — All Agents, One View
 
-The complete validation checklist with reviewer [OK], e2e-tester PASS/FAIL status, and doc consistency verification. Bottom shows Claude Code's real-time agent HUD with all 6 teammates and their token usage.
+The complete validation checklist with reviewer [OK], e2e-tester PASS/FAIL status, and doc consistency verification. Bottom shows CodeBuddy's real-time agent HUD with all 6 teammates and their token usage.
 
 ![Final Dashboard](docs/images/06-final-dashboard.png)
 
@@ -71,16 +71,16 @@ The complete validation checklist with reviewer [OK], e2e-tester PASS/FAIL statu
 
 ## Prerequisites
 
-Agent teams are an experimental feature in Claude Code. Enable them first:
+Agent teams are an experimental feature in CodeBuddy. Enable them first:
 
 ```bash
 # Option A: Environment variable
-export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+export CODEBUDDY_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
-# Option B: In ~/.claude/settings.json
+# Option B: In ~/.codebuddy/settings.json
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CODEBUDDY_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }
 ```
@@ -92,7 +92,7 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ### Option 1: Marketplace (Recommended)
 
 ```bash
-# Step 1: Add the marketplace (in Claude Code)
+# Step 1: Add the marketplace (in CodeBuddy)
 /plugin marketplace add jessepwj/CCteam-creator
 
 # Step 2: Install — choose ONE language
@@ -106,17 +106,17 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 git clone https://github.com/jessepwj/CCteam-creator.git
 
 # English
-cp -r CCteam-creator/skills/CCteam-creator ~/.claude/skills/CCteam-creator
+cp -r CCteam-creator/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 
 # Or Chinese
-cp -r CCteam-creator/cn/skills/CCteam-creator ~/.claude/skills/CCteam-creator
+cp -r CCteam-creator/cn/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
 ```
 
 ### Option 3: Project-level Install
 
 ```bash
 # Share with your team via project directory
-cp -r CCteam-creator/skills/CCteam-creator .claude/skills/CCteam-creator
+cp -r CCteam-creator/skills/CCteam-creator .codebuddy/skills/CCteam-creator
 ```
 
 ## Usage
@@ -135,12 +135,12 @@ cp -r CCteam-creator/skills/CCteam-creator .claude/skills/CCteam-creator
 
 | Role | Name | Model | Key Capabilities |
 |------|------|-------|-----------------|
-| Backend Dev | `backend-dev` | opus | Server code + TDD + Doc-Code Sync + observability (when applicable) |
-| Frontend Dev | `frontend-dev` | opus | Client code + TDD + Doc-Code Sync + component testing |
-| Researcher | `researcher` | sonnet | Code search + web research + plan stress-testing (read-only) |
-| E2E Tester | `e2e-tester` | sonnet | Playwright E2E + event-first debugging + bug tracking |
-| Code Reviewer | `reviewer` | opus | Security/quality/performance + doc consistency + invariant-driven review |
-| Code Cleaner | `cleaner` | sonnet | Dead code removal + doc freshness scan + safe refactoring |
+| Backend Dev | `backend-dev` | GLM-5.0 | Server code + TDD + Doc-Code Sync + observability (when applicable) |
+| Frontend Dev | `frontend-dev` | GLM-5.0 | Client code + TDD + Doc-Code Sync + component testing |
+| Researcher | `researcher` | GLM-5.0 | Code search + web research + plan stress-testing (read-only) |
+| E2E Tester | `e2e-tester` | GLM-5.0 | Playwright E2E + event-first debugging + bug tracking |
+| Code Reviewer | `reviewer` | GLM-5.0 | Security/quality/performance + doc consistency + invariant-driven review |
+| Code Cleaner | `cleaner` | GLM-5.0 | Dead code removal + doc freshness scan + safe refactoring |
 
 You don't need all roles. CCteam-creator recommends the right combination for your project.
 
@@ -148,7 +148,7 @@ You don't need all roles. CCteam-creator recommends the right combination for yo
 
 ### Team-Lead as Control Plane
 
-The main conversation acts as team-lead — not just a task dispatcher, but the **control plane** owning user alignment, phase gates, and the team's durable operating rules. Team-lead maintains the project CLAUDE.md (always in context), task_plan.md, and decisions.md.
+The main conversation acts as team-lead — not just a task dispatcher, but the **control plane** owning user alignment, phase gates, and the team's durable operating rules. Team-lead maintains the project CODEBUDDY.md (always in context), task_plan.md, and decisions.md.
 
 ### docs/ Knowledge Base (Harness Engineering)
 
@@ -173,7 +173,7 @@ Recurring bug patterns are promoted from Known Pitfalls to formal invariants in 
 
 ### Failure-to-Guardrail Loop
 
-When a 3-Strike escalation is resolved or a reviewer [BLOCK] is fixed, team-lead asks: "Will this recur?" If yes, it gets captured in CLAUDE.md's Known Pitfalls section — ensuring the same mistake never happens again. This is the core harness engineering insight: every failure becomes a permanent guardrail.
+When a 3-Strike escalation is resolved or a reviewer [BLOCK] is fixed, team-lead asks: "Will this recur?" If yes, it gets captured in CODEBUDDY.md's Known Pitfalls section — ensuring the same mistake never happens again. This is the core harness engineering insight: every failure becomes a permanent guardrail.
 
 ### Anti-Bloat Principles
 
@@ -251,9 +251,9 @@ All progress persists to `.plans/<project>/`:
 | Doc-Code Sync | Devs update docs/ when code changes; reviewer verifies |
 | Phase Health Check | Verify doc freshness, stale tasks, index integrity at phase boundaries |
 
-### Living CLAUDE.md
+### Living CODEBUDDY.md
 
-CLAUDE.md is not a one-time generation — it's a **living document** that evolves with the project. Updated when failure patterns are captured, team roster changes, or new protocols are established.
+CODEBUDDY.md is not a one-time generation — it's a **living document** that evolves with the project. Updated when failure patterns are captured, team roster changes, or new protocols are established.
 
 ## Known Limitation: Teammate Context Cannot Be Compacted
 
@@ -263,18 +263,18 @@ With **1M context**, teammates **cannot auto-compact** and cannot run `/compact`
 
 **Recommendation**: Use 200k context (default) for team projects. If you do use 1M context and notice slowdowns:
 
-1. Exit Claude Code completely (`Ctrl+C` or `/exit`)
-2. Resume with `claude --continue`
-3. Team-lead reads `.plans/` files to restore project state (CLAUDE.md is auto-loaded)
+1. Exit CodeBuddy completely (`Ctrl+C` or `/exit`)
+2. Resume with `codebuddy --continue`
+3. Team-lead reads `.plans/` files to restore project state (CODEBUDDY.md is auto-loaded)
 4. Re-spawn teammates — they start fresh with clean context and re-read their own `.plans/` files for recovery
 
-This is a Claude Code platform limitation, not a CCteam-creator issue. All agent progress is persisted in `.plans/` files, so no work is lost on restart.
+This is a CodeBuddy platform limitation, not a CCteam-creator issue. All agent progress is persisted in `.plans/` files, so no work is lost on restart.
 
 ## Project Structure
 
 ```
 CCteam-creator/
-  .claude-plugin/
+  .codebuddy-plugin/
     marketplace.json              -- Marketplace catalog
     plugin.json                   -- English plugin metadata
   skills/
@@ -283,7 +283,7 @@ CCteam-creator/
       references/
         roles.md / onboarding.md / templates.md
   cn/                             -- Chinese variant
-    .claude-plugin/plugin.json
+    .codebuddy-plugin/plugin.json
     skills/
       CCteam-creator/
         SKILL.md

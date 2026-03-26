@@ -135,7 +135,7 @@ Read file=progress.md offset=<末尾> limit=30
 - 更好的角色边界
 - 更好的审查门禁
 - 更好的任务/发现/进度约定
-- 更好的 CLAUDE.md 结构
+- 更好的 CODEBUDDY.md 结构
 
 不要自行决定这种变更应该留在项目本地还是写回 `CCteam-creator`；分类权归 team-lead。
 

@@ -7,7 +7,7 @@
 - **Core Responsibilities**:
   - Align with the user on scope, priorities, and trade-offs
   - Break work into tasks with explicit input, output, dependencies, and acceptance criteria
-  - Maintain project-global files: main `task_plan.md`, `decisions.md`, and project `CLAUDE.md`
+  - Maintain project-global files: main `task_plan.md`, `decisions.md`, and project `CODEBUDDY.md`
   - Enforce phase gates: research → development → review → E2E → cleanup
   - Own the team's operating rules and decide whether a workflow improvement is:
     - project-local documentation, or
@@ -24,7 +24,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 - **Name**: `backend-dev`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **Reference**: tdd-guide agent (TDD methodology + test-driven development)
 - **Core Responsibilities**:
   - Server-side implementation (API routes, controllers, middleware, database)
@@ -62,7 +62,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 - **Name**: `frontend-dev`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **Reference**: tdd-guide agent
 - **Core Responsibilities**:
   - Client-side implementation (components, hooks, state management, styling, routing)
@@ -86,7 +86,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 - **Name**: `researcher` (single) or `researcher-1`/`researcher-2`/`researcher-<focus>` (multi-instance)
 - **Multi-instance**: The only standard role designed for multiple simultaneous instances. Two patterns: (1) **Volume splitting** (most common) — same work type, split by quantity for parallel speedup; (2) **Direction splitting** — fully independent research topics. Each instance gets its own `.plans/` directory. No race conditions — researchers are read-only on source code. **Anti-pattern**: Do NOT split when B depends on A's output — sequential in one researcher is faster than a blocking chain across two
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **Reference**: Code search + web research + architecture analysis
 - **Core Responsibilities**:
   - Codebase search: find files by pattern (Glob), search code by keyword (Grep)
@@ -112,7 +112,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 - **Name**: `e2e-tester`
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **Reference**: e2e-runner agent (Playwright E2E testing)
 - **Core Responsibilities**:
   - Plan critical user flows (authentication, core business flows, error paths, edge cases)
@@ -143,7 +143,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 - **Name**: `reviewer`
 - **subagent_type**: `general-purpose`
-- **model**: `opus`
+- **model**: `GLM-5.0`
 - **Reference**: code-reviewer agent (security + quality review)
 - **Why not use `code-reviewer` type**: code-reviewer only has Read/Grep/Glob/Bash and cannot Write/Edit. But reviewer needs to write to dev's findings.md and its own progress.md. Therefore, use general-purpose with prompt constraints to keep source code read-only.
 - **Core Responsibilities**:
@@ -200,7 +200,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 - **Name**: `cleaner`
 - **subagent_type**: `general-purpose`
-- **model**: `sonnet`
+- **model**: `GLM-5.0`
 - **Reference**: refactor-cleaner agent (dead code removal + safe refactoring)
 - **Core Responsibilities**:
   - Identify and remove dead code (unused imports, variables, functions, files)
@@ -231,9 +231,7 @@ The team-lead is the team's **control plane**, not just a dispatcher.
 
 | Complexity | Model | Use Case |
 |------------|-------|---------|
-| Medium (search, research, architecture analysis) | sonnet | researcher (read-only search + deep analysis) |
-| Medium (test writing, pattern-based operations) | sonnet | e2e-tester, cleaner |
-| High (writing business logic, security review) | opus | backend-dev, frontend-dev, reviewer (requires deep reasoning and global understanding) |
+| All tasks | GLM-5.0 | All roles use the same model (GLM-5.0) for consistency |
 
 ## Universal Behavior Protocol (All Roles Must Follow)
 
@@ -255,7 +253,7 @@ Users may add custom roles following this format:
 |-------|----------|-------------|
 | Name | Yes | kebab-case, used for SendMessage `to:` and task `owner:` |
 | subagent_type | Yes | Must match an available agent type (note tool constraints, see table below) |
-| model | Yes | haiku / sonnet / opus |
+| model | Yes | GLM-5.0 (all roles use the same model) |
 | Reference | No | Which built-in agent's methodology to follow |
 | Core Responsibilities | Yes | What specifically this role does |
 | Documentation Structure | Yes | Whether task subfolders are needed |

@@ -1,0 +1,22 @@
+{
+  "name": "ccteam",
+  "owner": {
+    "name": "simonggx"
+  },
+  "metadata": {
+    "description": "Multi-agent team orchestration plugins for CodeBuddy. Create parallel AI agent teams with file-based planning and role-based collaboration.",
+    "version": "1.3.0"
+  },
+  "plugins": [
+    {
+      "name": "CCteam-creator",
+      "source": "./",
+      "description": "Multi-agent team orchestration for CodeBuddy (English)"
+    },
+    {
+      "name": "CCteam-creator-cn",
+      "source": "./cn",
+      "description": "Multi-agent team orchestration for CodeBuddy (Chinese)"
+    }
+  ]
+}

@@ -4,13 +4,13 @@ This file provides guidance to CodeBuddy Code when working with code in this rep
 
 ## Project Overview
 
-CCteam-creator is a multi-agent team orchestration skill for Claude Code. It sets up parallel AI agent teams with file-based planning, progress tracking, and role-based collaboration. The project provides both English and Chinese variants.
+CCteam-creator is a multi-agent team orchestration skill for CodeBuddy. It sets up parallel AI agent teams with file-based planning, progress tracking, and role-based collaboration. The project provides both English and Chinese variants.
 
 ## Project Structure
 
 ```
 CCteam-creator/
-  .claude-plugin/
+  .codebuddy-plugin/
     marketplace.json              -- Marketplace catalog (lists both EN/CN plugins)
     plugin.json                   -- English plugin metadata
   skills/
@@ -19,9 +19,9 @@ CCteam-creator/
       references/
         roles.md                  -- Role definitions (backend-dev, frontend-dev, researcher, etc.)
         onboarding.md             -- Agent onboarding prompt templates
-        templates.md              -- Planning file templates (task_plan.md, CLAUDE.md, etc.)
+        templates.md              -- Planning file templates (task_plan.md, CODEBUDDY.md, etc.)
   cn/                             -- Chinese variant
-    .claude-plugin/plugin.json    -- Chinese plugin metadata
+    .codebuddy-plugin/plugin.json -- Chinese plugin metadata
     skills/
       CCteam-creator/
         SKILL.md                  -- Chinese version of the skill
@@ -38,7 +38,7 @@ CCteam-creator/
 The main conversation acts as team-lead — not just a task dispatcher, but the control plane owning:
 - User alignment and scope control
 - Phase gates (research → development → review → E2E → cleanup)
-- Project-global files: main `task_plan.md`, `decisions.md`, project `CLAUDE.md`
+- Project-global files: main `task_plan.md`, `decisions.md`, project `CODEBUDDY.md`
 - Template-level vs project-local change classification
 
 ### File-Based State Persistence
@@ -61,16 +61,13 @@ All agent progress persists to `.plans/<project>/`:
 
 ### Role Models
 
-| Role | Model | Reasoning |
-|------|-------|-----------|
-| backend-dev, frontend-dev, reviewer | opus | Deep reasoning for business logic, security review |
-| researcher, e2e-tester, cleaner | sonnet | Sufficient for search, testing, pattern-based operations |
+All roles use **GLM-5.0** model for consistency.
 
 ## When Modifying This Project
 
 ### Template Changes
 
-Changes affecting role definitions, onboarding prompts, CLAUDE.md structure, or dispatch protocols should be made to BOTH:
+Changes affecting role definitions, onboarding prompts, CODEBUDDY.md structure, or dispatch protocols should be made to BOTH:
 1. `skills/CCteam-creator/references/` (English)
 2. `cn/skills/CCteam-creator/references/` (Chinese)
 
@@ -92,6 +89,7 @@ When editing SKILL.md or templates.md, ensure consistency with:
 
 ## Plugin Metadata
 
-- Version: Defined in `.claude-plugin/plugin.json` and `marketplace.json`
-- Marketplace: `jessepwj/CCteam-creator`
+- Version: Defined in `.codebuddy-plugin/plugin.json` and `marketplace.json`
+- Marketplace: `simonggx/CCteam-creator`
 - Two plugins: `CCteam-creator` (English) and `CCteam-creator-cn` (Chinese)
+- Model: GLM-5.0 (智谱)
