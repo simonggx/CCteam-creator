@@ -5,8 +5,9 @@
 ### 方法 1：手动安装（推荐）
 
 ```bash
-# 1. 克隆仓库
-git clone https://github.com/simonggx/CCteam-creator.git
+# 1. 克隆仓库（指定 CodeBuddy 适配分支）
+git clone -b codebuddyTeam-creator https://github.com/simonggx/CCteam-creator.git
+cd CCteam-creator
 
 # 2. 安装英文版
 cp -r CCteam-creator/skills/CCteam-creator ~/.codebuddy/skills/CCteam-creator
